@@ -1,1 +1,78 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <title>Számkaland – Számkitaláló játék</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f8ff;
+            text-align: center;
+            padding: 50px;
+        }
+        .game {
+            background: white;
+            padding: 30px;
+            max-width: 400px;
+            margin: auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        input {
+            padding: 8px;
+            font-size: 16px;
+            width: 80px;
+        }
+        button {
+            padding: 8px 15px;
+            font-size: 16px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+        .message {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
 
+    <div class="game">
+        <h1>🎲 Számkaland 🎲</h1>
+        <p>Gondoltam egy számra 1 és 100 között.<br>Ki tudod találni?</p>
+
+        <input type="number" id="guess" min="1" max="100">
+        <button onclick="checkGuess()">Tipp!</button>
+
+        <div class="message" id="message"></div>
+        <p id="attempts"></p>
+    </div>
+
+    <script>
+        let secretNumber = Math.floor(Math.random() * 100) + 1;
+        let tries = 0;
+
+        function checkGuess() {
+            const guess = Number(document.getElementById("guess").value);
+            const message = document.getElementById("message");
+            const attempts = document.getElementById("attempts");
+            tries++;
+
+            if (!guess) {
+                message.textContent = "❗ Adj meg egy számot!";
+                return;
+            }
+
+            if (guess < secretNumber) {
+                message.textContent = "📉 Túl kicsi a szám!";
+            } else if (guess > secretNumber) {
+                message.textContent = "📈 Túl nagy a szám!";
+            } else {
+                message.textContent = "🎉 Gratulálok! Kitaláltad!";
+                attempts.textContent = `Próbálkozások száma: ${tries}`;
+            }
+        }
+    </script>
+
+</body>
+</html>
